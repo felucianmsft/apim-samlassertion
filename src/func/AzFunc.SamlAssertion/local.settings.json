@@ -1,0 +1,16 @@
+{
+  "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+        "issuer": "APIManagement",
+        "nameIDFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+        "recipient": "SAMLAssertionRecipient",
+        "audience": "SAMLAssertionAudience",
+        "authnContextClassRef": "urn:none",
+        "subjectConfirmationMethod": "urn:oasis:names:tc:SAML:2.0:cm:bearer",
+        "certificateThumbprint": "03b494fdbccefea589298def64eb09480d81797d",
+        "signAssertion": "True",
+        "assertionDurationMins": 60
+    }
+}
