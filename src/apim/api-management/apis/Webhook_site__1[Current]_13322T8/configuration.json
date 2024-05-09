@@ -1,0 +1,42 @@
+{
+  "id": "/apis/webhook-site",
+  "name": "Webhook.site",
+  "apiRevision": "1",
+  "$ref-description": "",
+  "subscriptionRequired": true,
+  "serviceUrl": "https://webhook.site",
+  "backendId": null,
+  "path": "webhooksite",
+  "protocols": [
+    "https"
+  ],
+  "authenticationSettings": {
+    "oAuth2": null,
+    "openid": null
+  },
+  "subscriptionKeyParameterNames": {
+    "header": "Ocp-Apim-Subscription-Key",
+    "query": "subscription-key"
+  },
+  "isCurrent": true,
+  "operations": [
+    {
+      "id": "/apis/webhook-site/operations/request",
+      "name": "request",
+      "method": "GET",
+      "urlTemplate": "/27e6637c-4079-48cb-9795-612d152bfb1e",
+      "templateParameters": [],
+      "$ref-description": "",
+      "request": {
+        "queryParameters": [],
+        "headers": [],
+        "representations": []
+      },
+      "responses": [],
+      "policies": null
+    }
+  ],
+  "apiSchemas": [],
+  "$ref-policy": "api-management/policies/apis/Webhook_site__1[Current]_13322T8.xml",
+  "__GitModuleVersion": 17
+}
