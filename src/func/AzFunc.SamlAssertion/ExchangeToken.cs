@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace AzFunc.SamlAssertion
 {
@@ -14,7 +17,12 @@ namespace AzFunc.SamlAssertion
         }
 
         private readonly ILogger<ExchangeToken> _logger;
-
+        private readonly JsonWebTokenHandler _jwtHandler = new JsonWebTokenHandler();
+        private readonly ClaimsIdentity _subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim("name", "username"),
+                    new Claim("role", "role")
+                });
         public ExchangeToken(ILogger<ExchangeToken> logger)
         {
             _logger = logger;
@@ -32,12 +40,24 @@ namespace AzFunc.SamlAssertion
             {
                 // Validate the SAML assertion
                 // Exchange the SAML assertion for an OAuth token
-                return new JsonResult(new {access_token=$"this_is_a_jwt_access_token_generated_at_{DateTime.UtcNow.ToString("yyyyMMddTHHmmssZ")}"});
+                return new JsonResult(new {access_token=await GenerateJWT()});
             }
             else
             {
                 return new BadRequestObjectResult("Invalid grant_type");
             }
+        }
+
+        private async Task<string> GenerateJWT()
+        {
+            SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = _subject,
+                Expires = DateTime.UtcNow.AddMinutes(60),
+                Audience = "testaudience",
+                Issuer = "testissuer"
+            };
+            return _jwtHandler.CreateToken(securityTokenDescriptor);
         }
     }
 }
